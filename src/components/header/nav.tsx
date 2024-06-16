@@ -4,7 +4,7 @@ import { buttonVariants } from "../ui/button";
 import { ModeToggle } from "./ModeToggle";
 import NotificationsDropDown from "./Notifications";
 import UserDropdown from "./UserDropdown";
-import MobileSidebar from "@/app/admin/components/sidebar/MobileSidebar";
+import MobileSidebar from "@/app/admin/_components/sidebar/MobileSidebar";
 
 const SiteHeader = () => {
     const user = "admin";

@@ -3,7 +3,7 @@ import { Toaster } from "react-hot-toast";
 import { poppins } from "@/fonts";
 import "@/styles/globals.css";
 import SiteHeader from "@/components/header/nav";
-import Sidebar from "./components/sidebar/Sidebar";
+import Sidebar from "./_components/sidebar/Sidebar";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {

@@ -10,8 +10,10 @@ const AdminPage = () => {
           <StatsCard key={item.title} {...item} />
         ))}
       </div>
-      <div className="flex justify-between gap-4 md:flex-row flex-col">
+      <div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 gap-3">
+        <div className="xl:col-span-2">
         <InviteTable />
+        </div>
         <InviteForm />
       </div>
     </section>

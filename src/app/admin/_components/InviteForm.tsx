@@ -1,6 +1,7 @@
 "use client";
 import { InviteFormSchema } from "@/lib/validationSchemas";
 import { Button } from "@/components/ui/button";
+import { useFormState } from "react-dom";
 import {
   Card,
   CardContent,
@@ -49,7 +50,7 @@ export function InviteForm() {
       <CardContent>
         <Form {...form}>
           <form className="grid gap-4" onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
+            <div className="grid xl:grid-cols-2 grid-cols-1 gap-4">
               <FormField
                 control={form.control}
                 name="firstName"
