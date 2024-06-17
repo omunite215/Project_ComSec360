@@ -10,8 +10,14 @@ import {
 } from "@/components/ui/table";
 import { Pencil, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { InferSelectModel } from "drizzle-orm";
+import { Users_Table } from "@/db/schema";
 
-const InviteTable = () => {
+type Props = {
+  users?: InferSelectModel<typeof Users_Table>;
+};
+
+const InviteTable = ({ user }: Props) => {
   return (
     <Table>
       <TableCaption>A list of Invites Sent to New Account Users.</TableCaption>

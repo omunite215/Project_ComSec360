@@ -1,7 +1,6 @@
 "use client";
 import { InviteFormSchema } from "@/lib/validationSchemas";
 import { Button } from "@/components/ui/button";
-import { useFormState } from "react-dom";
 import {
   Card,
   CardContent,
@@ -19,11 +18,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { User2 } from "lucide-react";
+import { User2, Loader } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { createAccountUser } from "@/lib/actions";
+import { useState } from "react";
 
 export function InviteForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<z.infer<typeof InviteFormSchema>>({
     resolver: zodResolver(InviteFormSchema),
     defaultValues: {
@@ -35,9 +37,9 @@ export function InviteForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof InviteFormSchema>) {
-    console.log(values);
-  }
+  const onSubmit = (values: z.infer<typeof InviteFormSchema>) => {
+    createAccountUser(values, setIsSubmitting, form.reset);
+  };
 
   return (
     <Card>
@@ -122,7 +124,12 @@ export function InviteForm() {
               )}
             />
             <Button type="submit" className="w-full" size="lg">
-              Create an Account User <User2 className="ml-3 size-5 my-auto" />
+              {isSubmitting ? (
+                <Loader className="mr-2 size-5 animate-spin" />
+              ) : (
+                <User2 className="mr-2 size-5 my-auto" />
+              )}
+              &nbsp; Create an Account User
             </Button>
           </form>
         </Form>
