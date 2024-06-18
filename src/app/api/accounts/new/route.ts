@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
-import { InviteFormSchema } from "@/lib/validationSchemas";
+import { type NextRequest, NextResponse } from "next/server";
+import { AccountUserSchema } from "@/lib/validationSchemas";
 import { db } from "@/db";
 import { genSaltSync, hashSync} from "bcrypt-ts";
 import { Users_Table } from "@/db/schema";
@@ -8,7 +8,7 @@ const saltRounds = genSaltSync(12);
 
 export async function POST (request: NextRequest) {
     const body = await request.json();
-    const validation = InviteFormSchema.safeParse(body);
+    const validation = AccountUserSchema.safeParse(body);
     if (!validation.success)
         return NextResponse.json(validation.error.format(), { status: 400 });
 

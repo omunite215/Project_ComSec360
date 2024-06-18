@@ -1,10 +1,10 @@
 import axios from "axios";
-import { z } from "zod";
-import { InviteFormSchema } from "./validationSchemas";
+import type { z } from "zod";
+import type { AccountUserSchema } from "./validationSchemas";
 import toast from "react-hot-toast";
 
 export async function createAccountUser(
-  data: z.infer<typeof InviteFormSchema>,
+  data: z.infer<typeof AccountUserSchema>,
   setIsSubmitting: (value: boolean) => void,
   reset: () => void
 ) {

@@ -8,15 +8,23 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Pencil, Trash } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { InferSelectModel } from "drizzle-orm";
-import { Users_Table } from "@/db/schema";
+import type { InferSelectModel } from "drizzle-orm";
+import type { Users_Table } from "@/db/schema";
+import EditAccountUser from "./EditAccountUser";
+import DeleteAccountUser from "./DeleteAccountUser";
 
 type Props = {
-  users?: InferSelectModel<typeof Users_Table>;
+  user?: InferSelectModel<typeof Users_Table>;
 };
 
+const demo = {
+  type: "account_user",
+  email: "om21@gmail.com",
+  firstName: "om",
+  lastName: "patel",
+  password: "sdadadada",
+  id: "sdadd",
+} as Props;
 const InviteTable = ({ user }: Props) => {
   return (
     <Table>
@@ -36,14 +44,10 @@ const InviteTable = ({ user }: Props) => {
           <TableCell>Bond</TableCell>
           <TableCell>james.bond@gmail.com</TableCell>
           <TableCell>
-            <Button size="icon" variant="outline">
-              <Pencil />
-            </Button>
+            <EditAccountUser user={demo} />
           </TableCell>
           <TableCell>
-            <Button size="icon" variant="destructive">
-              <Trash />
-            </Button>
+            <DeleteAccountUser id="asdad" />
           </TableCell>
         </TableRow>
       </TableBody>

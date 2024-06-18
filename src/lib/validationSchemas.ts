@@ -6,7 +6,7 @@ export const AuthFormSchema = z.object({
     confirmPassword: z.string({required_error: '*required'}).min(8, 'password length must be atleast 8 characters').max(50, 'password length should not be grater than 50 characters')
 });
 
-export const InviteFormSchema = z.object({
+export const AccountUserSchema = z.object({
     firstName: z.string({ required_error: "Please enter your First Name!" }).min(1, "First Name is required!").max(50),
     lastName: z.string({ required_error: "Please enter your Second Name!" }).min(1, "Last Name is required!").max(50),
     email: z.string({ required_error: "Please enter your Email!" }).email({ message: "Invalid E-mail" }),
@@ -16,3 +16,4 @@ export const InviteFormSchema = z.object({
     message: "Passwords do not match",
     path: ["confirmPassword"],
 });
+
