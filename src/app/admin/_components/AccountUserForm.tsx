@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { User2, Loader } from "lucide-react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import { createAccountUser } from "@/lib/actions";
+import { createAccountUser, updateAccountUser } from "@/lib/actions";
 import { useState } from "react";
 import type { Users_Table } from "@/db/schema";
 import type { InferSelectModel } from "drizzle-orm";
@@ -36,7 +36,12 @@ export function AccountUserForm({
 	});
 
 	const onSubmit = (values: z.infer<typeof AccountUserSchema>) => {
-		createAccountUser(values, setIsSubmitting, form.reset);
+		if(user){
+			updateAccountUser(values, setIsSubmitting, form.reset);
+		}
+		else{
+			createAccountUser(values, setIsSubmitting, form.reset);
+		}
 	};
 
 	return (
@@ -113,14 +118,20 @@ export function AccountUserForm({
 						</FormItem>
 					)}
 				/>
-				<Button type="submit" className="w-full" size="lg">
+				{!user && <Button type="submit" className="w-full" size="lg">
 					{isSubmitting ? (
 						<Loader className="mr-2 size-5 animate-spin" />
 					) : (
 						<User2 className="mr-2 size-5 my-auto" />
 					)}
 					&nbsp; Create an Account User
-				</Button>
+				</Button>}
+				{user && <Button type="submit" className="w-full" size="lg">
+					{isSubmitting && (
+						<Loader className="mr-2 size-5 animate-spin" />
+					)}
+					&nbsp; Save Edits
+				</Button>}
 			</form>
 		</Form>
 	);

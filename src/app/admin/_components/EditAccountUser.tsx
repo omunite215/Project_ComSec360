@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/dialog";
 import {
 	Drawer,
-	DrawerClose,
 	DrawerContent,
 	DrawerDescription,
 	DrawerFooter,
@@ -20,13 +19,19 @@ import {
 } from "@/components/ui/drawer";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { AccountUserForm } from "./AccountUserForm";
-import type { InferSelectModel } from "drizzle-orm";
-import type { Users_Table } from "@/db/schema";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
-const EditAccountUser = ({
-	user,
-}: { user: InferSelectModel<typeof Users_Table> }) => {
+type Props = {
+	user: {
+		id: string;
+		firstName: string;
+		lastName: string;
+		password: string;
+		email: string;
+	};
+};
+
+const EditAccountUser = ({ user }: Props) => {
 	const isDesktop = useMediaQuery("(min-width: 768px)");
 	if (isDesktop) {
 		return (
@@ -38,13 +43,13 @@ const EditAccountUser = ({
 				</DialogTrigger>
 				<DialogContent className="sm:max-w-lg max-w-md mx-3">
 					<DialogHeader>
-						<DialogTitle>Edit Account User Info ( id: {user.id} )</DialogTitle>
+						<DialogTitle>Edit Account User Info</DialogTitle>
 						<DialogDescription>
 							Make changes to Account User Information. Click save when
 							you&apos;re done.
 						</DialogDescription>
 					</DialogHeader>
-					<AccountUserForm user={user} />
+					<AccountUserForm user={{ ...user, type: "account_user" }} />
 				</DialogContent>
 			</Dialog>
 		);
@@ -65,7 +70,7 @@ const EditAccountUser = ({
 					</DrawerDescription>
 				</DrawerHeader>
 				<DrawerFooter>
-					<AccountUserForm user={user} />
+					<AccountUserForm user={{ ...user, type: "account_user" }} />
 				</DrawerFooter>
 			</DrawerContent>
 		</Drawer>

@@ -21,16 +21,24 @@ import {
 	DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { Trash } from "lucide-react";
+import { deleteAccountUser } from "@/lib/actions";
+import { Trash, Loader } from "lucide-react";
+import { useState } from "react";
 
 const DeleteAccountUser = ({ id }: { id: string }) => {
 	const isDesktop = useMediaQuery("(min-width: 768px)");
+	const [isSubmitting, setisSubmitting] = useState(false);
+	const handleSubmit = () => {
+		deleteAccountUser(id, setisSubmitting);
+	};
 
 	if (isDesktop) {
 		return (
 			<Dialog>
-				<DialogTrigger className={buttonVariants({variant: "destructive", size: "icon"})}>
-					<Trash/>
+				<DialogTrigger
+					className={buttonVariants({ variant: "destructive", size: "icon" })}
+				>
+					<Trash />
 				</DialogTrigger>
 				<DialogContent className=" max-w-md">
 					<DialogHeader>
@@ -44,7 +52,14 @@ const DeleteAccountUser = ({ id }: { id: string }) => {
 						<DialogClose>
 							<Button>Cancel</Button>
 						</DialogClose>
-						<Button variant="destructive">Delete</Button>
+						<form action={handleSubmit}>
+							<Button variant="destructive" type="submit">
+								{isSubmitting && (
+									<Loader className="mr-2 size-5 animate-spin" />
+								)}
+								&nbsp;Delete
+							</Button>
+						</form>
 					</DialogFooter>
 				</DialogContent>
 			</Dialog>
@@ -67,7 +82,12 @@ const DeleteAccountUser = ({ id }: { id: string }) => {
 					</DrawerDescription>
 				</DrawerHeader>
 				<DrawerFooter className="space-y-6">
-					<Button variant="destructive">Delete</Button>
+					<form action={handleSubmit}>
+						<Button variant="destructive" type="submit">
+							{isSubmitting && <Loader className="mr-2 size-5 animate-spin" />}
+							&nbsp;Delete
+						</Button>
+					</form>
 					<DrawerClose>
 						<Button className="w-full">Cancel</Button>
 					</DrawerClose>
