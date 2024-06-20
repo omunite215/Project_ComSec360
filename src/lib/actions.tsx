@@ -22,19 +22,20 @@ export async function createAccountUser(
 }
 
 export async function updateAccountUser(
+  id: string,
   data: z.infer<typeof AccountUserSchema>,
   setIsSubmitting: (value: boolean) => void,
   reset: () => void
 ) {
   setIsSubmitting(true);
   try{
-    await axios.post("/api/accounts", data);
-    toast.success("Account User Created Successfully!!");
+    await axios.patch(`/api/accounts/${id}`, data);
+    toast.success("Account User Updated Successfully!!");
     setIsSubmitting(false);
     reset();
   }
   catch(error){
-    toast.error("Sorry!! Could not create new account.");
+    toast.error("Sorry!! Could not update the account.");
     setIsSubmitting(false);
   }
 }

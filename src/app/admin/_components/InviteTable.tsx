@@ -1,105 +1,240 @@
-import React from "react";
+"use client";
+
+import { Button } from "@/components/ui/button";
+import {
+	DropdownMenu,
+	DropdownMenuCheckboxItem,
+	DropdownMenuContent,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
 import {
 	Table,
 	TableBody,
-	TableCaption,
 	TableCell,
 	TableHead,
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { eq } from "drizzle-orm";
-import { Users_Table } from "@/db/schema";
+import {
+	type ColumnDef,
+	type ColumnFiltersState,
+	type SortingState,
+	type VisibilityState,
+	flexRender,
+	getCoreRowModel,
+	getFilteredRowModel,
+	getPaginationRowModel,
+	getSortedRowModel,
+	useReactTable,
+} from "@tanstack/react-table";
+import { ArrowUpDown, ChevronDown } from "lucide-react";
 import EditAccountUser from "./EditAccountUser";
 import DeleteAccountUser from "./DeleteAccountUser";
-import { db } from "@/db";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Suspense } from "react";
 
-const InviteTableSkeleton = () => {
-	const count = [1, 2, 3, 4];
-	return (
-		<Table>
-			<TableCaption>A list of Invites Sent to New Account Users.</TableCaption>
-			<TableHeader>
-				<TableRow>
-					<TableHead>First Name</TableHead>
-					<TableHead>Last Name</TableHead>
-					<TableHead>Email</TableHead>
-					<TableHead>Update</TableHead>
-					<TableHead>Delete</TableHead>
-				</TableRow>
-			</TableHeader>
-			<TableBody>
-				{count.map((countItem) => (
-					<TableRow key={countItem}>
-						<TableCell>
-							<Skeleton className=" h-4 w-24 rounded-lg" />
-						</TableCell>
-						<TableCell>
-							<Skeleton className=" h-4 w-24 rounded-lg" />
-						</TableCell>
-						<TableCell>
-							<Skeleton className=" h-4 w-24 rounded-lg" />
-						</TableCell>
-						<TableCell>
-							<Skeleton className=" h-4 w-24 rounded-lg" />
-						</TableCell>
-						<TableCell>
-							<Skeleton className=" h-4 w-24 rounded-lg" />
-						</TableCell>
-					</TableRow>
-				))}
-			</TableBody>
-		</Table>
-	);
+type AccountUsersTypes = {
+	id: string;
+	firstName: string;
+	lastName: string;
+	email: string;
+	password: string;
 };
 
-const InviteTable = async () => {
-	const result = await db
-		.select({
-			id: Users_Table.id,
-			firstName: Users_Table.firstName,
-			lastName: Users_Table.lastName,
-			email: Users_Table.email,
-			password: Users_Table.password,
-		})
-		.from(Users_Table)
-		.where(eq(Users_Table.type, "account_user"));
+export const columns: ColumnDef<AccountUsersTypes>[] = [
+	{
+		accessorKey: "firstName",
+		header: ({ column }) => {
+			return (
+				<Button
+					variant="ghost"
+					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+				>
+					First Name
+					<ArrowUpDown className="ml-2 h-4 w-4" />
+				</Button>
+			);
+		},
+		cell: ({ row }) => (
+			<div className="capitalize font-medium">{row.getValue("firstName")}</div>
+		),
+	},
+	{
+		accessorKey: "lastName",
+		header: () => <div className="text-right">Last Name</div>,
+		cell: ({ row }) => {
+			return <div className="text-right">{row.getValue("lastName")}</div>;
+		},
+	},
+	{
+		accessorKey: "email",
+		header: () => <div className="text-right">Email</div>,
+		cell: ({ row }) => {
+			return (
+				<div className="text-right font-medium">{row.getValue("email")}</div>
+			);
+		},
+	},
+	{
+		accessorKey: "update",
+		header: () => <div className="text-right">Update</div>,
+		cell: ({ row }) => {
+			return (
+				<div>
+					<EditAccountUser user={row.original} />
+				</div>
+			);
+		},
+	},
+	{
+		accessorKey: "id",
+		header: () => <div className="text-right">Delete</div>,
+		cell: ({ row }) => {
+			return (
+				<div>
+					<DeleteAccountUser id={row.getValue("id")} />
+				</div>
+			);
+		},
+	},
+];
+
+export default function InviteTable({ data }: { data: AccountUsersTypes[] }) {
+	const [sorting, setSorting] = useState<SortingState>([]);
+	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+
+	const table = useReactTable({
+		data,
+		columns,
+		onSortingChange: setSorting,
+		onColumnFiltersChange: setColumnFilters,
+		getCoreRowModel: getCoreRowModel(),
+		getPaginationRowModel: getPaginationRowModel(),
+		initialState: {
+			pagination: {
+				pageIndex: 0,
+				pageSize: 5,
+			},
+		},
+		getSortedRowModel: getSortedRowModel(),
+		getFilteredRowModel: getFilteredRowModel(),
+		onColumnVisibilityChange: setColumnVisibility,
+		state: {
+			sorting,
+			columnFilters,
+			columnVisibility,
+		},
+	});
 
 	return (
-		<Suspense fallback={<InviteTableSkeleton />}>
-			<Table>
-				<TableCaption>
-					A list of Invites Sent to New Account Users.
-				</TableCaption>
-				<TableHeader>
-					<TableRow>
-						<TableHead>First Name</TableHead>
-						<TableHead>Last Name</TableHead>
-						<TableHead>Email</TableHead>
-						<TableHead>Update</TableHead>
-						<TableHead>Delete</TableHead>
-					</TableRow>
-				</TableHeader>
-				<TableBody>
-					{result?.map((item) => (
-						<TableRow key={item.id}>
-							<TableCell>{item.firstName}</TableCell>
-							<TableCell>{item.lastName}</TableCell>
-							<TableCell>{item.email}</TableCell>
-							<TableCell>
-								<EditAccountUser user={item} />
-							</TableCell>
-							<TableCell>
-								<DeleteAccountUser id={item.id} />
-							</TableCell>
-						</TableRow>
-					))}
-				</TableBody>
-			</Table>
-		</Suspense>
+		<div className="w-full">
+			<div className="flex items-center py-4 flex-wrap">
+				<Input
+					placeholder="Search Emails..."
+					value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+					onChange={(event) =>
+						table.getColumn("email")?.setFilterValue(event.target.value)
+					}
+					className="max-w-sm"
+				/>
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<Button variant="outline" className="ml-auto">
+							Columns <ChevronDown className="ml-2 h-4 w-4" />
+						</Button>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent align="end">
+						{table
+							.getAllColumns()
+							.filter((column) => column.getCanHide())
+							.map((column) => {
+								return (
+									<DropdownMenuCheckboxItem
+										key={column.id}
+										className="capitalize"
+										checked={column.getIsVisible()}
+										onCheckedChange={(value) =>
+											column.toggleVisibility(!!value)
+										}
+									>
+										{column.id}
+									</DropdownMenuCheckboxItem>
+								);
+							})}
+					</DropdownMenuContent>
+				</DropdownMenu>
+			</div>
+			<div className="rounded-md border">
+				<Table>
+					<TableHeader>
+						{table.getHeaderGroups().map((headerGroup) => (
+							<TableRow key={headerGroup.id}>
+								{headerGroup.headers.map((header) => {
+									return (
+										<TableHead key={header.id}>
+											{header.isPlaceholder
+												? null
+												: flexRender(
+														header.column.columnDef.header,
+														header.getContext(),
+													)}
+										</TableHead>
+									);
+								})}
+							</TableRow>
+						))}
+					</TableHeader>
+					<TableBody>
+						{table.getRowModel().rows?.length ? (
+							table.getRowModel().rows.map((row) => (
+								<TableRow
+									key={row.id}
+									data-state={row.getIsSelected() && "selected"}
+								>
+									{row.getVisibleCells().map((cell) => (
+										<TableCell key={cell.id}>
+											{flexRender(
+												cell.column.columnDef.cell,
+												cell.getContext(),
+											)}
+										</TableCell>
+									))}
+								</TableRow>
+							))
+						) : (
+							<TableRow>
+								<TableCell
+									colSpan={columns.length}
+									className="h-24 text-center"
+								>
+									No results.
+								</TableCell>
+							</TableRow>
+						)}
+					</TableBody>
+				</Table>
+			</div>
+			<div className="flex items-center justify-end space-x-2 py-4">
+				<div className="space-x-2">
+					<Button
+						variant="outline"
+						size="sm"
+						onClick={() => table.previousPage()}
+						disabled={!table.getCanPreviousPage()}
+					>
+						Previous
+					</Button>
+					<Button
+						variant="outline"
+						size="sm"
+						onClick={() => table.nextPage()}
+						disabled={!table.getCanNextPage()}
+					>
+						Next
+					</Button>
+				</div>
+			</div>
+		</div>
 	);
-};
-
-export default InviteTable;
+}

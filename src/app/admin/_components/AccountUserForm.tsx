@@ -36,10 +36,9 @@ export function AccountUserForm({
 	});
 
 	const onSubmit = (values: z.infer<typeof AccountUserSchema>) => {
-		if(user){
-			updateAccountUser(values, setIsSubmitting, form.reset);
-		}
-		else{
+		if (user) {
+			updateAccountUser(user.id, values, setIsSubmitting, form.reset);
+		} else {
 			createAccountUser(values, setIsSubmitting, form.reset);
 		}
 	};
@@ -118,20 +117,22 @@ export function AccountUserForm({
 						</FormItem>
 					)}
 				/>
-				{!user && <Button type="submit" className="w-full" size="lg">
-					{isSubmitting ? (
-						<Loader className="mr-2 size-5 animate-spin" />
-					) : (
-						<User2 className="mr-2 size-5 my-auto" />
-					)}
-					&nbsp; Create an Account User
-				</Button>}
-				{user && <Button type="submit" className="w-full" size="lg">
-					{isSubmitting && (
-						<Loader className="mr-2 size-5 animate-spin" />
-					)}
-					&nbsp; Save Edits
-				</Button>}
+				{!user && (
+					<Button type="submit" className="w-full" size="lg">
+						{isSubmitting ? (
+							<Loader className="mr-2 size-5 animate-spin" />
+						) : (
+							<User2 className="mr-2 size-5 my-auto" />
+						)}
+						&nbsp; Create an Account User
+					</Button>
+				)}
+				{user && (
+					<Button type="submit" className="w-full" size="lg">
+						{isSubmitting && <Loader className="mr-2 size-5 animate-spin" />}
+						&nbsp; Save Edits
+					</Button>
+				)}
 			</form>
 		</Form>
 	);

@@ -25,10 +25,13 @@ export async function PATCH(
   };
 
   await db.update(Users_Table).set(user).where(eq(Users_Table.id, params.id));
-  return NextResponse.json(user, { status: 201 });
+  return NextResponse.json(user, { status: 200 });
 }
 
-export async function DELETE({ params }: { params: { id: string } }) {
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } },
+) {
   await db.delete(Users_Table).where(eq(Users_Table.id, params.id));
-  return NextResponse.json({ status: 201 });
+  return NextResponse.json({ status: 200 });
 }

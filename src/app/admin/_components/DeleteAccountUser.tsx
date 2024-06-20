@@ -45,21 +45,19 @@ const DeleteAccountUser = ({ id }: { id: string }) => {
 						<DialogTitle>Are You Sure ?</DialogTitle>
 						<DialogDescription>
 							This action cannot be undone. Are you sure you want to permanently
-							delete this Account User(id: {id})?
+							delete this Account User?
 						</DialogDescription>
 					</DialogHeader>
 					<DialogFooter className="justify-end space-x-4">
-						<DialogClose>
-							<Button>Cancel</Button>
-						</DialogClose>
-						<form action={handleSubmit}>
-							<Button variant="destructive" type="submit">
-								{isSubmitting && (
-									<Loader className="mr-2 size-5 animate-spin" />
-								)}
-								&nbsp;Delete
-							</Button>
-						</form>
+						<DialogClose className={buttonVariants()}>Cancel</DialogClose>
+						<Button
+							variant="destructive"
+							type="button"
+							onClick={() => deleteAccountUser(id, setisSubmitting)}
+						>
+							{isSubmitting && <Loader className="mr-2 size-5 animate-spin" />}
+							&nbsp;Delete
+						</Button>
 					</DialogFooter>
 				</DialogContent>
 			</Dialog>
@@ -78,16 +76,14 @@ const DeleteAccountUser = ({ id }: { id: string }) => {
 					<DrawerTitle>Are You Sure ?</DrawerTitle>
 					<DrawerDescription>
 						This action cannot be undone. Are you sure you want to permanently
-						delete this Account User(id: {id})?
+						delete this Account User?
 					</DrawerDescription>
 				</DrawerHeader>
 				<DrawerFooter className="space-y-6">
-					<form action={handleSubmit}>
-						<Button variant="destructive" type="submit">
-							{isSubmitting && <Loader className="mr-2 size-5 animate-spin" />}
-							&nbsp;Delete
-						</Button>
-					</form>
+					<Button variant="destructive" type="button" onClick={handleSubmit}>
+						{isSubmitting && <Loader className="mr-2 size-5 animate-spin" />}
+						&nbsp;Delete
+					</Button>
 					<DrawerClose>
 						<Button className="w-full">Cancel</Button>
 					</DrawerClose>
