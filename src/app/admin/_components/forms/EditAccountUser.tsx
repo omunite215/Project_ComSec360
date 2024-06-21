@@ -1,5 +1,5 @@
 "use client";
-import { Pencil } from "lucide-react";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
 	Dialog,
 	DialogContent,
@@ -17,9 +17,9 @@ import {
 	DrawerTitle,
 	DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { AccountUserForm } from "./AccountUserForm";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { Pencil } from "lucide-react";
+import { AccountUserForm } from "./AccountUserForm";
 
 type Props = {
 	user: {

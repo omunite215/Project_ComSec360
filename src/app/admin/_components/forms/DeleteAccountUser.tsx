@@ -22,16 +22,18 @@ import {
 } from "@/components/ui/drawer";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { deleteAccountUser } from "@/lib/actions";
-import { Trash, Loader } from "lucide-react";
+import { Loader, Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const DeleteAccountUser = ({ id }: { id: string }) => {
+	const router = useRouter();
 	const isDesktop = useMediaQuery("(min-width: 768px)");
 	const [isSubmitting, setisSubmitting] = useState(false);
 	const handleSubmit = () => {
 		deleteAccountUser(id, setisSubmitting);
+		router.refresh();
 	};
-
 	if (isDesktop) {
 		return (
 			<Dialog>
@@ -50,14 +52,13 @@ const DeleteAccountUser = ({ id }: { id: string }) => {
 					</DialogHeader>
 					<DialogFooter className="justify-end space-x-4">
 						<DialogClose className={buttonVariants()}>Cancel</DialogClose>
-						<Button
-							variant="destructive"
-							type="button"
+						<DialogClose
+							className={buttonVariants({ variant: "destructive" })}
 							onClick={() => deleteAccountUser(id, setisSubmitting)}
 						>
 							{isSubmitting && <Loader className="mr-2 size-5 animate-spin" />}
 							&nbsp;Delete
-						</Button>
+						</DialogClose>
 					</DialogFooter>
 				</DialogContent>
 			</Dialog>

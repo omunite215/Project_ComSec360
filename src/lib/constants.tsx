@@ -170,20 +170,17 @@ export const incorporationEmailContent = [
 export const StatsInfo = [
   {
     title: "Total Account Users",
-    stat: 0,
-    icon: <Users className="size-7 text-muted-foreground" />,
+    icon: <Users size={28} className="text-muted-foreground" />,
     description: "Total Account Users Active",
   },
   {
     title: "Total Companies",
-    stat: 0,
-    icon: <Building2 className="size-7 text-muted-foreground" />,
+    icon: <Building2 size={28} className="text-muted-foreground" />,
     description: "Total companies registered at ComSec360",
   },
   {
     title: "Total Projects",
-    stat: 0,
-    icon: <Presentation className="size-7 text-muted-foreground" />,
+    icon: <Presentation size={28} className="text-muted-foreground" />,
     description: "Total projects registered at ComSec360",
   },
 ];

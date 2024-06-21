@@ -1,17 +1,17 @@
 "use client";
-import { navItems } from "@/lib/constants";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useCallback, useState } from "react";
+import { buttonVariants } from "@/components/ui/button";
 import {
 	Collapsible,
 	CollapsibleContent,
 	CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { buttonVariants } from "@/components/ui/button";
+import { navItems } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 import { LayoutGrid } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useCallback, useState } from "react";
 
 const Sidebar = () => {
 	const currentPath = usePathname();

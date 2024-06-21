@@ -1,5 +1,4 @@
 "use client";
-import { AccountUserSchema } from "@/lib/validationSchemas";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -10,18 +9,21 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import type { Users_Table } from "@/db/schema";
+import { createAccountUser, updateAccountUser } from "@/lib/actions";
+import { AccountUserSchema } from "@/lib/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { User2, Loader } from "lucide-react";
+import type { InferSelectModel } from "drizzle-orm";
+import { Loader, User2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import { createAccountUser, updateAccountUser } from "@/lib/actions";
-import { useState } from "react";
-import type { Users_Table } from "@/db/schema";
-import type { InferSelectModel } from "drizzle-orm";
 
 export function AccountUserForm({
 	user,
 }: { user?: InferSelectModel<typeof Users_Table> }) {
+	const router = useRouter();
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const form = useForm<z.infer<typeof AccountUserSchema>>({
@@ -38,8 +40,10 @@ export function AccountUserForm({
 	const onSubmit = (values: z.infer<typeof AccountUserSchema>) => {
 		if (user) {
 			updateAccountUser(user.id, values, setIsSubmitting, form.reset);
+			router.refresh();
 		} else {
 			createAccountUser(values, setIsSubmitting, form.reset);
+			router.refresh();
 		}
 	};
 

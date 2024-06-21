@@ -7,7 +7,6 @@ import {
 	DropdownMenuContent,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import {
 	Table,
@@ -30,8 +29,9 @@ import {
 	useReactTable,
 } from "@tanstack/react-table";
 import { ArrowUpDown, ChevronDown } from "lucide-react";
-import EditAccountUser from "./EditAccountUser";
-import DeleteAccountUser from "./DeleteAccountUser";
+import { useState } from "react";
+import DeleteAccountUser from "../forms/DeleteAccountUser";
+import EditAccountUser from "../forms/EditAccountUser";
 
 type AccountUsersTypes = {
 	id: string;

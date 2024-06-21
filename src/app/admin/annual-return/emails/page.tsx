@@ -1,5 +1,5 @@
 import React from "react";
-import ComingSoon from "@/app/admin/_components/ComingSoon";
+import ComingSoon from "@/app/admin/_components/templates/ComingSoon";
 
 const Admin_Annual_Return_Page = () => {
   return <ComingSoon />;
