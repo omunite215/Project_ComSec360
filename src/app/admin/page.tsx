@@ -1,19 +1,20 @@
-import StatsCard from "@/components/StatsCard";
+import { Suspense } from "react";
+import CardSet from "./_components/cards/CardSet";
 import { InviteForm } from "./_components/forms/InviteForm";
 import DataTable from "./_components/table/DataTable";
-import { StatsInfo } from "@/lib/constants";
+import { CardSetSkeleton, TableSkeleton } from "./_components/skeletons";
 
 const AdminPage = () => {
 	return (
 		<section className="py-6 container space-y-6">
-			<div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
-				{StatsInfo.map((item) => (
-					<StatsCard key={item.title} {...item} />
-				))}
-			</div>
+			<Suspense fallback={<CardSetSkeleton />}>
+				<CardSet />
+			</Suspense>
 			<div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 gap-3">
 				<div className="xl:col-span-2">
-					<DataTable />
+					<Suspense fallback={<TableSkeleton />}>
+						<DataTable />
+					</Suspense>
 				</div>
 				<InviteForm />
 			</div>

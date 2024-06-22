@@ -171,16 +171,19 @@ export const StatsInfo = [
   {
     title: "Total Account Users",
     icon: <Users size={28} className="text-muted-foreground" />,
+    stat: 0 as number | string,
     description: "Total Account Users Active",
   },
   {
     title: "Total Companies",
     icon: <Building2 size={28} className="text-muted-foreground" />,
+    stat: 0 as number | string,
     description: "Total companies registered at ComSec360",
   },
   {
     title: "Total Projects",
     icon: <Presentation size={28} className="text-muted-foreground" />,
+    stat: 0 as number | string,
     description: "Total projects registered at ComSec360",
   },
 ];

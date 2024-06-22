@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 type StatsCardProps = {
 	title: string;
 	icon: JSX.Element;
-	stat?: string | number;
+	stat?: string | number | JSX.Element;
 	description: string;
 };
 

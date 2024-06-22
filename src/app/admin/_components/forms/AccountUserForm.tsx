@@ -122,19 +122,29 @@ export function AccountUserForm({
 					)}
 				/>
 				{!user && (
-					<Button type="submit" className="w-full" size="lg">
+					<Button
+						type="submit"
+						variant="gooeyLeft"
+						className="w-full"
+						size="lg"
+					>
 						{isSubmitting ? (
 							<Loader className="mr-2 size-5 animate-spin" />
 						) : (
 							<User2 className="mr-2 size-5 my-auto" />
 						)}
-						&nbsp; Create an Account User
+						&nbsp; {isSubmitting ? "Creating" : "Create"} an Account User
 					</Button>
 				)}
 				{user && (
-					<Button type="submit" className="w-full" size="lg">
+					<Button
+						type="submit"
+						variant="gooeyLeft"
+						className="w-full"
+						size="lg"
+					>
 						{isSubmitting && <Loader className="mr-2 size-5 animate-spin" />}
-						&nbsp; Save Edits
+						&nbsp; {isSubmitting ? "Saving" : "Save"} Edits
 					</Button>
 				)}
 			</form>
