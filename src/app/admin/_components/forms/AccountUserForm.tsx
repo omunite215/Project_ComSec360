@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import type { Users_Table } from "@/db/schema";
-import { createAccountUser, updateAccountUser } from "@/lib/actions";
+import { CreateNewAccountUser } from "@/lib/actions";
 import { AccountUserSchema } from "@/lib/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { InferSelectModel } from "drizzle-orm";
@@ -18,6 +18,7 @@ import { Loader, User2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import type { z } from "zod";
 
 export function AccountUserForm({
@@ -37,13 +38,13 @@ export function AccountUserForm({
 		},
 	});
 
-	const onSubmit = (values: z.infer<typeof AccountUserSchema>) => {
+	const onSubmit = async (values: z.infer<typeof AccountUserSchema>) => {
 		if (user) {
-			updateAccountUser(user.id, values, setIsSubmitting, form.reset);
-			router.refresh();
+			router.push("/admin");
 		} else {
-			createAccountUser(values, setIsSubmitting, form.reset);
-			router.refresh();
+			const result = await CreateNewAccountUser(values);
+			if (result?.success) toast.success("Account Created Successfully!!");
+			router.push("/admin");
 		}
 	};
 
