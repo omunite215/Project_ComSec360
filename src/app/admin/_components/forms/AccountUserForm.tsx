@@ -10,13 +10,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import type { Users_Table } from "@/db/schema";
-import { CreateNewAccountUser } from "@/lib/actions";
+import { CreateNewAccountUser, UpdateAccountUser } from "@/lib/actions";
 import { AccountUserSchema } from "@/lib/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { InferSelectModel } from "drizzle-orm";
 import { Loader, User2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import type { z } from "zod";
@@ -25,7 +24,6 @@ export function AccountUserForm({
 	user,
 }: { user?: InferSelectModel<typeof Users_Table> }) {
 	const router = useRouter();
-	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const form = useForm<z.infer<typeof AccountUserSchema>>({
 		resolver: zodResolver(AccountUserSchema),
@@ -38,14 +36,22 @@ export function AccountUserForm({
 		},
 	});
 
+	const { isSubmitting } = form.formState;
 	const onSubmit = async (values: z.infer<typeof AccountUserSchema>) => {
-		if (user) {
-			router.push("/admin");
+		const result = user
+			? await UpdateAccountUser(values, user.id)
+			: await CreateNewAccountUser(values);
+
+		if (result?.success) {
+			toast.success(
+				`Account User ${user ? "Updated" : "Created"} Successfully!!`,
+			);
 		} else {
-			const result = await CreateNewAccountUser(values);
-			if (result?.success) toast.success("Account Created Successfully!!");
-			router.push("/admin");
+			toast.error(
+				`Sorry ! Could not ${user ? "Update" : "Create"} Account User!!`,
+			);
 		}
+		router.refresh();
 	};
 
 	return (
@@ -122,32 +128,20 @@ export function AccountUserForm({
 						</FormItem>
 					)}
 				/>
-				{!user && (
-					<Button
-						type="submit"
-						variant="gooeyLeft"
-						className="w-full"
-						size="lg"
-					>
-						{isSubmitting ? (
-							<Loader className="mr-2 size-5 animate-spin" />
-						) : (
-							<User2 className="mr-2 size-5 my-auto" />
-						)}
-						&nbsp; {isSubmitting ? "Creating" : "Create"} an Account User
-					</Button>
-				)}
-				{user && (
-					<Button
-						type="submit"
-						variant="gooeyLeft"
-						className="w-full"
-						size="lg"
-					>
-						{isSubmitting && <Loader className="mr-2 size-5 animate-spin" />}
-						&nbsp; {isSubmitting ? "Saving" : "Save"} Edits
-					</Button>
-				)}
+				 <Button
+                    type="submit"
+                    variant="gooeyLeft"
+                    className="w-full"
+                    size="lg"
+                    disabled={isSubmitting}
+                >
+                    {isSubmitting ? (
+                        <Loader className="mr-2 size-5 animate-spin" />
+                    ) : (
+                        <User2 className="mr-2 size-5 my-auto" />
+                    )}
+                    &nbsp; {isSubmitting ? (user ? "Saving" : "Creating") : (user ? "Save" : "Create")} Account User
+                </Button>
 			</form>
 		</Form>
 	);

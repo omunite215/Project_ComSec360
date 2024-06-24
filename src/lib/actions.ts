@@ -1,11 +1,11 @@
 "use server";
 
-import { AccountUserSchema } from "@/lib/validationSchemas";
 import { db } from "@/db";
-import { genSaltSync, hashSync } from "bcrypt-ts";
 import { Users_Table } from "@/db/schema";
-import type { z } from "zod";
+import { AccountUserSchema } from "@/lib/validationSchemas";
+import { genSaltSync, hashSync } from "bcrypt-ts";
 import { eq } from "drizzle-orm";
+import type { z } from "zod";
 
 const saltRounds = genSaltSync(12);
 
@@ -52,11 +52,11 @@ export async function UpdateAccountUser(
   }
 }
 
-export async function DELETE(id: string) {
-  try{
+export async function RemoveAccountUser(id: string) {
+  try {
     await db.delete(Users_Table).where(eq(Users_Table.id, id));
-  }
-  catch(error){
-    
+    return { success: true };
+  } catch (error) {
+    return { error: error };
   }
 }

@@ -21,22 +21,31 @@ import {
 	DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { deleteAccountUser } from "@/lib/actions";
+import { RemoveAccountUser } from "@/lib/actions";
 import { Loader, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const DeleteAccountUser = ({ id }: { id: string }) => {
 	const router = useRouter();
 	const isDesktop = useMediaQuery("(min-width: 768px)");
 	const [isSubmitting, setisSubmitting] = useState(false);
-	const handleSubmit = () => {
-		deleteAccountUser(id, setisSubmitting);
+	const [open, setOpen] = useState(false);
+
+	const handleSubmit = async () => {
+		setisSubmitting(true);
+		const result = await RemoveAccountUser(id);
+		if (result.success) toast.success("Account User Removed Successfully!!");
+		if (result.error) toast.error("Sorry!! Could not remove Account User");
+		setisSubmitting(false);
+		setOpen(false);
 		router.refresh();
 	};
+
 	if (isDesktop) {
 		return (
-			<Dialog>
+			<Dialog open={open} onOpenChange={setOpen}>
 				<DialogTrigger
 					className={buttonVariants({ variant: "destructive", size: "icon" })}
 				>
@@ -54,7 +63,7 @@ const DeleteAccountUser = ({ id }: { id: string }) => {
 						<DialogClose className={buttonVariants()}>Cancel</DialogClose>
 						<DialogClose
 							className={buttonVariants({ variant: "destructive" })}
-							onClick={() => deleteAccountUser(id, setisSubmitting)}
+							onClick={handleSubmit}
 						>
 							{isSubmitting && <Loader className="mr-2 size-5 animate-spin" />}
 							&nbsp;Delete
