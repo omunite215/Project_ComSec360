@@ -42,47 +42,59 @@ export const AccountUserSchema = z
 
 //For Account User Purpose
 
-export const CompanyInfoFormSchema = z.object({
-  name: z.string().min(2, "min. 2 characters").max(255).trim(),
-  chiname: z.string().max(255).trim().optional(),
-  type: z.enum(["public", "private"]),
-  code: z.string().length(3, { message: "*required" }),
-  nature: z.string().min(5, { message: "*required" }).trim(),
-  house: z.string().max(65).trim().optional(),
-  building: z.string().max(65).trim().optional(),
-  street: z.string().max(65).trim().optional(),
-  district: z.string().max(65).trim().optional(),
-  country: z
-    .string()
-    .min(3, "*required | need min. 3 characters")
-    .max(20)
-    .trim(),
-  email: z.string().max(255).trim().optional(),
-  companyTel: z
-    .string()
-    .refine(isValidPhoneNumber, { message: "Invalid phone number" })
-    .optional(),
-  companyfax: z
-    .string()
-    .refine(isValidPhoneNumber, { message: "Invalid phone number" })
-    .optional(),
-  time: z.enum(["1 year", "3 years"]),
-  companyLogo: z.any(),
-  presentorName: z.string().min(2, "min. 2 characters").max(255).trim(),
-  presentorChiName: z.string().max(255).trim().optional(),
-  presentorAddress: z
-    .string()
-    .min(10, "*required | need min. 10 characters")
-    .max(65535)
-    .trim(),
-  presentorTel: z
-    .string()
-    .refine(isValidPhoneNumber, { message: "Invalid phone number" })
-    .optional(),
-  presentorFax: z
-    .string()
-    .refine(isValidPhoneNumber, { message: "Invalid phone number" })
-    .optional(),
-  presentorEmail: z.string().max(255).trim().optional(),
-  presentorReferance: z.string().max(255).trim(),
-});
+export const CompanyInfoFormSchema = z
+  .object({
+    name: z.string().min(2, "min. 2 characters").max(255).trim(),
+    chiname: z.string().max(255).trim().optional(),
+    type: z.enum(["public", "private"]),
+    code: z.string().length(3, { message: "*required" }),
+    nature: z.string().min(5, { message: "*required" }).trim(),
+    house: z.string().max(65).trim().optional(),
+    building: z.string().max(65).trim().optional(),
+    street: z.string().max(65).trim().optional(),
+    district: z.string().max(65).trim().optional(),
+    country: z
+      .string()
+      .min(3, "*required | need min. 3 characters")
+      .max(20)
+      .trim(),
+    email: z.string().max(255).trim().optional(),
+    companyTel: z
+      .string()
+      .refine(isValidPhoneNumber, { message: "Invalid phone number" })
+      .or(z.literal("")),
+    companyfax: z
+      .string()
+      .refine(isValidPhoneNumber, { message: "Invalid phone number" })
+      .or(z.literal("")),
+    time: z.enum(["1 year", "3 years"]),
+    companyLogo: z.any(),
+    presentorName: z.string().min(2, "min. 2 characters").max(255).trim(),
+    presentorChiName: z.string().max(255).trim().optional(),
+    presentorAddress: z
+      .string()
+      .min(10, "need min. 10 characters")
+      .max(65535)
+      .trim(),
+    presentorTel: z
+      .string()
+      .refine(isValidPhoneNumber, { message: "Invalid phone number" })
+      .or(z.literal("")),
+    presentorFax: z
+      .string()
+      .refine(isValidPhoneNumber, { message: "Invalid phone number" })
+      .or(z.literal("")),
+    presentorEmail: z.string().max(255).trim().optional(),
+    presentorReferance: z.string().max(255).trim(),
+  })
+  .refine(
+    (data) =>
+      data.house !== "" ||
+      data.building !== "" ||
+      data.street !== "" ||
+      data.district !== "",
+    {
+      message: "Fill At Least One Field.",
+      path: ["district"],
+    },
+  );

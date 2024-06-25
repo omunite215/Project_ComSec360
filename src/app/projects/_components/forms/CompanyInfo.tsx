@@ -3,6 +3,7 @@
 import { CompanyInfoFormSchema } from "@/lib/validationSchemas";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { PhoneInput } from "@/components/ui/phone-input";
+import { getCurrentDate } from "@/lib/utils";
 import {
 	Command,
 	CommandEmpty,
@@ -41,10 +42,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
-	CompanyInfoHoverContent,
-	NatureOfBusinessContent,
-} from "@/lib/constants";
+import { NatureOfBusinessContent } from "@/lib/constants";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
@@ -52,7 +50,6 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 
 const CompanyInfo = () => {
-	const [disable, setDisable] = useState(false);
 	const [open, setOpen] = useState(false);
 	const [value, setValue] = useState("");
 	const [filteredContent, setFilteredContent] = useState(
@@ -87,18 +84,6 @@ const CompanyInfo = () => {
 		},
 	});
 	const LogoFileRef = form.register("companyLogo", { required: true });
-	const checkDisable = () => {
-		if (
-			form.getValues("house")?.length === 0 &&
-			form.getValues("building")?.length === 0 &&
-			form.getValues("street")?.length === 0 &&
-			form.getValues("district")?.length === 0
-		) {
-			setDisable(true);
-		} else {
-			setDisable(false);
-		}
-	};
 
 	const onCommandInputChange = (event: string) => {
 		const value = event.toLowerCase();
@@ -250,7 +235,6 @@ const CompanyInfo = () => {
 																			form.setValue("nature", item.value);
 																			form.setValue("code", item.code);
 																			setOpen(false);
-																			checkDisable();
 																		}}
 																	>
 																		<Check
@@ -284,18 +268,12 @@ const CompanyInfo = () => {
 										<FormLabel className="inline-flex items-center gap-2">
 											<span>Address: </span>
 											<CompanyAddressHoverCard />
-											{disable && (
-												<span className="text-destructive">
-													You need to enter atleast one address field.
-												</span>
-											)}
 										</FormLabel>
 										<FormControl>
 											<Input
 												placeholder="Flat / Floor / Block"
 												onChange={(e) => {
 													form.setValue("house", e.target.value);
-													checkDisable();
 												}}
 											/>
 										</FormControl>
@@ -313,7 +291,6 @@ const CompanyInfo = () => {
 												placeholder="Building"
 												onChange={(e) => {
 													form.setValue("building", e.target.value);
-													checkDisable();
 												}}
 											/>
 										</FormControl>
@@ -331,7 +308,6 @@ const CompanyInfo = () => {
 												placeholder="Street"
 												onChange={(e) => {
 													form.setValue("street", e.target.value);
-													checkDisable();
 												}}
 											/>
 										</FormControl>
@@ -350,7 +326,6 @@ const CompanyInfo = () => {
 												{...field}
 												onChange={(e) => {
 													form.setValue("district", e.target.value);
-													checkDisable();
 												}}
 											/>
 										</FormControl>
@@ -594,6 +569,7 @@ const CompanyInfo = () => {
 												<Input
 													placeholder="Eg: CompanyName-NNC1-06-03-2024"
 													{...field}
+													value={`${form.getValues("name")}-NNC1-${getCurrentDate()}`}
 													readOnly
 												/>
 											</FormControl>
@@ -604,7 +580,7 @@ const CompanyInfo = () => {
 							</CardContent>
 						</Card>
 						<div className="flex justify-end items-center">
-							<Button type="submit" variant="destructive" disabled={disable}>
+							<Button type="submit" variant="destructive">
 								Save & Next
 							</Button>
 						</div>

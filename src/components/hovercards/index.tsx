@@ -13,7 +13,7 @@ export const CompanyNameHoverCard = () => {
 			<HoverCardTrigger>
 				<InfoIcon size={20} />
 			</HoverCardTrigger>
-			<HoverCardContent>
+			<HoverCardContent className="max-w-96">
 				<ol className="space-y-3 list-[lower-alpha] *:leading-relaxed px-2 py-2">
 					<li>{CompanyInfoHoverContent.name.first}</li>
 					<li>{CompanyInfoHoverContent.name.second}</li>
