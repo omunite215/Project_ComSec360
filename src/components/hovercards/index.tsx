@@ -7,6 +7,7 @@ import {
 import { InfoIcon } from "lucide-react";
 import { CompanyInfoHoverContent } from "@/lib/constants";
 
+//Company Info
 export const CompanyNameHoverCard = () => {
 	return (
 		<HoverCard>
@@ -70,6 +71,36 @@ export const CompanyPresentorHoverCard = () => {
 			</HoverCardTrigger>
 			<HoverCardContent className="font-normal leading-relaxed text-base">
 				{CompanyInfoHoverContent.presentor}
+			</HoverCardContent>
+		</HoverCard>
+	);
+};
+
+//Shares Info
+
+export const RightsHoverCard = () => {
+	return (
+		<HoverCard>
+			<HoverCardTrigger>
+				<InfoIcon size={24} />
+			</HoverCardTrigger>
+			<HoverCardContent className="w-80">
+				<ol type="a" className="space-y-3 px-2 py-2 list-[lower-alpha]">
+					<li>
+						The particulars of any voting rights attached to shares in that
+						class, including rights that arise only in certain circumstances
+					</li>
+					<li>
+						The particulars of any rights attached to shares in that class, as
+						respects dividends, to participate in a distribution
+					</li>
+					<li>
+						The particulars of any rights attached to shares in that class, as
+						respects capital, to participate in a distribution (including on a
+						winding up)
+					</li>
+					<li>Whether or not shares in that class are redeemable shares</li>
+				</ol>
 			</HoverCardContent>
 		</HoverCard>
 	);

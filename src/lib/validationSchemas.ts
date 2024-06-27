@@ -98,3 +98,30 @@ export const CompanyInfoFormSchema = z
       path: ["district"],
     },
   );
+
+
+  export const ShareCapitalFormSchema = z.object({
+    class: z.string().max(255).trim(),
+    totalProposed: z.coerce.number().positive().min(1, { message: "min. 1" }),
+    currency: z.string().max(3),
+    unitPrice: z.coerce.number().positive().min(1, {
+      message: "min. 1",
+    }),
+    total: z.coerce
+      .number()
+      .nonnegative({ message: "This field can't be negative" })
+      .min(0.01),
+    paid: z.coerce
+      .number()
+      .nonnegative({ message: "This field can't be negative" })
+      .min(0),
+    unpaid: z.coerce
+      .number()
+      .nonnegative({ message: "This field can't be negative" }),
+    rightsAttached: z
+      .string()
+      .min(1, { message: "*required" })
+      .max(255)
+      .trim()
+      .optional(),
+  });
