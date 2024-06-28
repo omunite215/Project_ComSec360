@@ -200,7 +200,9 @@ export const StatsInfo = [
 	},
 ];
 
-// Account User
+// ACCOUNT USER
+
+	// -> Company Info
 
 export const CompanyInfoHoverContent = {
 	name: {
@@ -583,3 +585,19 @@ export const NatureOfBusinessContent = [
 		code: "099",
 	},
 ];
+
+export const currencyContent = [
+	"HKD",
+	"USD",
+	"EUR",
+	"INR",
+	"JPY",
+	"GBP",
+	"AUD",
+	"CAD",
+	"CHF",
+	"CNY",
+	"SEK",
+	"NZD",
+  ];
+
