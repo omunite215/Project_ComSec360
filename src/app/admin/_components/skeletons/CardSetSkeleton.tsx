@@ -10,7 +10,7 @@ const CardSetSkeleton = () => {
 					key={item.title}
 					title={item.title}
 					description={item.description}
-					stat={<Skeleton className="size-4" />}
+					stat={<Skeleton className="size-4 mb-2" />}
 					icon={item.icon}
 				/>
 			))}

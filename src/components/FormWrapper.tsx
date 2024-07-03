@@ -13,9 +13,9 @@ import {
 } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { buttonVariants } from "../ui/button";
-import { Label } from "../ui/label";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { buttonVariants } from "./ui/button";
+import { Label } from "./ui/label";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 
 type Props = {
 	name: "Share Capital" | "Director" | "Shareholder";
