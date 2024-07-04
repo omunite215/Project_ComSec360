@@ -61,11 +61,13 @@ const InviteGuestUsers = ({ text }: { text: string }) => {
       ],
     },
   });
+  
   const control = form.control;
   const { fields, append, remove } = useFieldArray({
     name: "shareDetails",
     control,
   });
+
   const inviteGuestUserRows = [
     {
       label: "Name",
