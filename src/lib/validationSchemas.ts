@@ -42,6 +42,20 @@ export const AccountUserSchema = z
 
 //For Account User Purpose
 
+const shareDetailsSchema = z.object({
+  classOfShares: z.string().max(255),
+  noOfShares: z.coerce
+    .number()
+    .nonnegative({ message: "This field can't be negative" })
+    .min(1),
+});
+
+export const GuestUserFormSchema = z.object({
+  name: z.string().min(2, "min. 2 char(s)").max(255).trim(),
+  email: z.string().max(255).email().trim(),
+  shareDetails: z.array(shareDetailsSchema).default([]).optional(),
+});
+
 export const CompanyInfoFormSchema = z
   .object({
     name: z.string().min(2, "min. 2 characters").max(255).trim(),
@@ -124,4 +138,61 @@ export const CompanyInfoFormSchema = z
       .max(255)
       .trim()
       .optional(),
+  });
+
+  export const DirectorsFormSchema = z.object({
+    type: z.enum(["person", "company"], { required_error: "*required" }),
+    surname: z.string().min(2, "min. 2 char(s)").max(255).nullable(),
+    name: z.string().min(2, "min. 2 char(s)").max(255),
+    idNo: z.string().max(100),
+    address: z
+      .string({ required_error: "*required" })
+      .min(10, "*required | need min. 10 characters")
+      .max(65535),
+    phone: z.string(),
+    email: z.string().max(255).email().optional(),
+    idProof: z
+      .any()
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+      .refine((file: string | any[]) => file?.length === 1, "File is required.")
+      .refine(
+        (file: { size: number }[]) => file[0]?.size <= 3000000,
+        "Max file size is 3MB."
+      ),
+    addressProof: z
+      .any()
+      .refine(
+        (file: { size: number }[]) => file[0]?.size <= 3000000,
+        "Max file size is 3MB."
+      ),
+  });
+
+  export const CompanySecretaryFormSchema = z.object({
+    tcspLicenseNo: z.string().max(100).trim(),
+    tcspReason: z
+      .string()
+      .min(10, "need min. 10 characters")
+      .max(65535)
+      .trim()
+      .optional(),
+    type: z.enum(["person", "company"], { required_error: "*required" }),
+    surname: z.string().max(255).trim().optional(),
+    name: z.string().min(2, "min. 2 char(s)").max(255).trim(),
+    idNo: z.string().max(100),
+    address: z
+      .string({ required_error: "*required" })
+      .min(10, "*required | need min. 10 characters")
+      .max(65535)
+      .trim(),
+    phone: z.string(),
+    email: z.string().max(255).email().trim(),
+    idProof: z
+      .any()
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+      .refine((file: string | any[]) => file?.length === 1, "File is required.")
+      .refine(
+        (file: { size: number }[]) => file[0]?.size <= 3000000,
+        "Max file size is 3MB."
+      ),
+    addressProof: z.any(),
   });

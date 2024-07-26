@@ -1,6 +1,6 @@
 "use client";
 
-import { DirectorsFormSchema } from "@/app/validationSchemas";
+import { DirectorsFormSchema } from "@/lib/validationSchemas";
 import Tooltip from "@/components/Tooltip";
 import { Button } from "@/components/ui/button";
 import {

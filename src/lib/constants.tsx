@@ -97,7 +97,7 @@ export const incorporationDocumentsContent = [
 	{
 		id: 1,
 		title: "Share Certificates Background",
-		href: "/templates",
+		href: "#",
 	},
 	{
 		id: 2,
@@ -117,7 +117,7 @@ export const incorporationDocumentsContent = [
 	{
 		id: 5,
 		title: "Preferance Share Agreement",
-		href: "/documents/PSA.pdf",
+		href: "/documents/SA.pdf",
 	},
 	{
 		id: 6,
@@ -126,8 +126,8 @@ export const incorporationDocumentsContent = [
 	},
 	{
 		id: 7,
-		title: "IRBRI",
-		href: "/documents/IRBRI.pdf",
+		title: "IRBR1",
+		href: "/documents/IRBR1.pdf",
 	},
 ];
 
@@ -585,6 +585,41 @@ export const NatureOfBusinessContent = [
 		code: "099",
 	},
 ];
+
+export const shareCapitalRows = [
+	{
+	  label: "Class of Shares",
+	  for: "class",
+	},
+	{
+	  label: "Total Shares Proposed",
+	  for: "totalProposed",
+	},
+	{
+	  label: "Currency",
+	  for: "currency",
+	},
+	{
+	  label: "Unit Price of Share",
+	  for: "unitPrice",
+	},
+	{
+	  label: "Total Amount",
+	  for: "total",
+	},
+	{
+	  label: "Total Capital Subscribed",
+	  for: "paid",
+	},
+	{
+	  label: "Unpaid Amount",
+	  for: "unpaid",
+	},
+	{
+	  label: "Particulars of Rights Attached",
+	  for: "rightsAttached",
+	},
+  ];
 
 export const currencyContent = [
 	"HKD",

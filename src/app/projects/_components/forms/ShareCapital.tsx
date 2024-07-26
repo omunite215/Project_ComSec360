@@ -1,7 +1,7 @@
 "use client";
 
-import { ShareCapitalFormSchema } from "@/app/validationSchemas";
-import ShareCapitalData from "@/components/Forms/Data/ShareCapitalData";
+import { ShareCapitalFormSchema } from "@/lib/validationSchemas";
+// import ShareCapitalData from "@/components/Forms/Data/ShareCapitalData";
 import { RightsHoverCard } from "@/components/hovercards";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
@@ -40,25 +40,24 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { useToast } from "@/components/ui/use-toast";
 import { currencyContent, shareCapitalRows } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { useShareCapitalStore } from "@/store/shareCapitalDataStore";
+// import { useShareCapitalStore } from "@/store/shareCapitalDataStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
 const ShareCapital = () => {
-	const { toast } = useToast();
+	// const { toast } = useToast();
 	const [isOpen, setIsOpen] = useState(true);
 
-	const shareCapitalData = useShareCapitalStore(
-		(state) => state.shareCapitalData,
-	);
-	const addShareCapitalData = useShareCapitalStore(
-		(state) => state.addShareCapitalData,
-	);
+	// const shareCapitalData = useShareCapitalStore(
+	// 	(state) => state.shareCapitalData,
+	// );
+	// const addShareCapitalData = useShareCapitalStore(
+	// 	(state) => state.addShareCapitalData,
+	// );
 
 	const form = useForm<z.infer<typeof ShareCapitalFormSchema>>({
 		resolver: zodResolver(ShareCapitalFormSchema),
@@ -92,19 +91,19 @@ const ShareCapital = () => {
 	};
 
 	// Submit Handler.
-	function onSubmit(values: z.infer<typeof ShareCapitalFormSchema>) {
-		console.log(values);
-		const newId = Math.max(...shareCapitalData.map((entry) => entry.id), 0) + 1;
-		const newValues = {
-			id: newId,
-			...values,
-		};
-		addShareCapitalData(newValues);
-		toast({
-			title: "Success!!",
-			description: "Field has been Added Successfully!!",
-		});
-	}
+	// function onSubmit(values: z.infer<typeof ShareCapitalFormSchema>) {
+	// 	console.log(values);
+	// 	const newId = Math.max(...shareCapitalData.map((entry) => entry.id), 0) + 1;
+	// 	const newValues = {
+	// 		id: newId,
+	// 		...values,
+	// 	};
+	// 	addShareCapitalData(newValues);
+	// 	toast({
+	// 		title: "Success!!",
+	// 		description: "Field has been Added Successfully!!",
+	// 	});
+	// }
 
 	return (
 		<Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-full">
@@ -124,10 +123,10 @@ const ShareCapital = () => {
 				</div>
 				<CardContent className="space-y-6">
 					<CollapsibleContent className="CollapsibleContent">
-						<ShareCapitalData />
+						{/* <ShareCapitalData /> */}
 					</CollapsibleContent>
 					<Form {...form}>
-						<form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
+						<form className="space-y-8">
 							<Table>
 								<TableHeader>
 									<TableRow>

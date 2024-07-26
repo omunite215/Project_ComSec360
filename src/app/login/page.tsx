@@ -3,10 +3,13 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import AuthForm from "@/components/AuthForm";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 
 export default function Home() {
   return (
@@ -31,6 +34,10 @@ export default function Home() {
           <CardContent className="grid gap-4">
             <AuthForm />
           </CardContent>
+          <CardFooter>
+            <span className=" text-destructive">This button is only for testing purposes.</span>
+            <Link href="/admin" className={buttonVariants()}>Link to Admin</Link>
+          </CardFooter>
         </Card>
       </div>
       <div className="hidden lg:block animate-in slide-in-from-right-96 delay-500 duration-700">

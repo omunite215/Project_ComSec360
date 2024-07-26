@@ -1,6 +1,6 @@
 "use client";
 
-import { GuestUserFormSchema } from "@/app/validationSchemas";
+import { GuestUserFormSchema } from "@/lib/validationSchemas";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -44,9 +44,9 @@ import {
 
 const InviteGuestUsers = ({ text }: { text: string }) => {
   const [disable, setDisable] = useState(false);
-  const shareCapitalData = useShareCapitalStore(
-		(state) => state.shareCapitalData,
-	);
+  // const shareCapitalData = useShareCapitalStore(
+	// 	(state) => state.shareCapitalData,
+	// );
 
   const form = useForm<z.infer<typeof GuestUserFormSchema>>({
     resolver: zodResolver(GuestUserFormSchema),
@@ -184,7 +184,7 @@ const InviteGuestUsers = ({ text }: { text: string }) => {
                             <SelectContent>
                               <SelectGroup>
                                 <SelectLabel>Class of Shares</SelectLabel>
-                                {shareCapitalData.map((item) => (
+                                {/* {shareCapitalData.map((item) => (
                                   <SelectItem key={item.id} value={item.class}>
                                     <div className="flex gap-3">
                                       <span className="font-medium">
@@ -195,7 +195,7 @@ const InviteGuestUsers = ({ text }: { text: string }) => {
                                       </span>
                                     </div>
                                   </SelectItem>
-                                ))}
+                                ))} */}
                               </SelectGroup>
                             </SelectContent>
                           </Select>

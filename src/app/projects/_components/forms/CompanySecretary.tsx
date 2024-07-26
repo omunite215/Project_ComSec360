@@ -1,6 +1,6 @@
 "use client";
 
-import { CompanySecretaryFormSchema } from "@/app/validationSchemas";
+import { CompanySecretaryFormSchema } from "@/lib/validationSchemas";
 import Tooltip from "@/components/Tooltip";
 import { Button } from "@/components/ui/button";
 import {
@@ -34,7 +34,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import type { z } from "zod";
 import { PhoneInput } from "@/components/ui/phone-input";
 
 const CompanySecretary = () => {

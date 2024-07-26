@@ -3,14 +3,14 @@ import { create } from "zustand";
 type State = {
   TabValue: "CompanyInfo" | "SharesInfo" | "Directors" | "CompanySecretary";
   TabState: {
-    disableSharesInfo: Boolean;
-    disableDirectors: Boolean;
-    disableCompanySecretary: Boolean;
+    disableSharesInfo: boolean;
+    disableDirectors: boolean;
+    disableCompanySecretary: boolean;
   };
 };
 
-type Actions = {
+// type Actions = {
     
-}
+// }
 
 export const FormStateStore = {};
