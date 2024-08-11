@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { WelcomeDialog } from "../_components/Popups/WelcomeDialog"
-import CompanyInfo from "../_components/forms/CompanyInfo"
+import CompanyInfoForm from "../_components/forms/CompanyInfoForm"
 
 const ProjectRegistrationPage = () => {
   return (
@@ -13,7 +13,7 @@ const ProjectRegistrationPage = () => {
                 <TabsTrigger value="Directors">Directors</TabsTrigger>
                 <TabsTrigger value="Company Secretary">Company Secretary</TabsTrigger>
             </TabsList>
-            <TabsContent value="Company Info"><CompanyInfo/></TabsContent>
+            <TabsContent value="Company Info"><CompanyInfoForm/></TabsContent>
             <TabsContent value="Shares Info">Shares Info</TabsContent>
             <TabsContent value="Directors">Directors</TabsContent>
             <TabsContent value="Company Secreatary">Company Secretary</TabsContent>

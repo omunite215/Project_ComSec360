@@ -62,7 +62,7 @@ export const CompanyInfoFormSchema = z
     chiname: z.string().trim().max(255).optional(),
     type: z.enum(["public", "private"]),
     code: z.string().length(3, { message: "*required" }),
-    nature: z.string().min(5, { message: "*required" }).trim(),
+    nature: z.string().min(5, { message: "*required" }),
     house: z.string().trim().max(65).optional(),
     building: z.string().trim().max(65).optional(),
     street: z.string().trim().max(65).optional(),
@@ -77,12 +77,11 @@ export const CompanyInfoFormSchema = z
       .string()
       .trim()
       .refine(isValidPhoneNumber, { message: "Invalid phone number" })
-      .optional(),
-    companyfax: z
+      .or(z.literal("")),
+    companyFax: z
       .string()
       .trim()
-      .refine(isValidPhoneNumber, { message: "Invalid phone number" })
-      .optional(),
+      .refine(isValidPhoneNumber, { message: "Invalid phone number" }).or(z.literal("")),
     time: z.enum(["1 year", "3 years"]),
     companyLogo: z.any(),
     presentorName: z.string().trim().min(2, "min. 2 characters").max(255),
@@ -95,11 +94,11 @@ export const CompanyInfoFormSchema = z
     presentorTel: z
       .string()
       .refine(isValidPhoneNumber, { message: "Invalid phone number" })
-      .optional(),
+      .or(z.literal("")),
     presentorFax: z
       .string()
       .refine(isValidPhoneNumber, { message: "Invalid phone number" })
-      .optional(),
+      .or(z.literal("")),
     presentorEmail: z.string().max(255).trim().optional(),
     presentorReferance: z.string().max(255).trim(),
   })

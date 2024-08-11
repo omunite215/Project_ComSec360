@@ -14,7 +14,7 @@ export const CompanyNameHoverCard = () => {
 			<HoverCardTrigger>
 				<InfoIcon size={20} />
 			</HoverCardTrigger>
-			<HoverCardContent className="max-w-96">
+			<HoverCardContent className="sm:w-96 w-fit">
 				<ol className="space-y-3 list-[lower-alpha] *:leading-relaxed px-2 py-2">
 					<li>{CompanyInfoHoverContent.name.first}</li>
 					<li>{CompanyInfoHoverContent.name.second}</li>
@@ -30,7 +30,7 @@ export const CompanyTypeHoverCard = () => {
 			<HoverCardTrigger>
 				<InfoIcon size={20} />
 			</HoverCardTrigger>
-			<HoverCardContent className="leading-relaxed">
+			<HoverCardContent className="leading-relaxed sm:w-80 w-fit">
 				{CompanyInfoHoverContent.type}
 			</HoverCardContent>
 		</HoverCard>
