@@ -2,7 +2,7 @@
 
 import { ShareCapitalFormSchema } from "@/lib/validationSchemas";
 import { RightsHoverCard } from "@/components/hovercards";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button} from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -29,14 +29,12 @@ import {
 } from "@/components/ui/table";
 import { currencyContent, shareCapitalRows } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-// import { useShareCapitalStore } from "@/store/shareCapitalDataStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import CustomFormField from "@/components/CustomFormFields";
 
-const ShareCapital = () => {
+const ShareCapitalForm = () => {
   const form = useForm<z.infer<typeof ShareCapitalFormSchema>>({
     resolver: zodResolver(ShareCapitalFormSchema),
     defaultValues: {
@@ -99,7 +97,6 @@ const ShareCapital = () => {
                     })}
                   >
                     {row.label}
-                    {row.for === "rightsAttached" && <RightsHoverCard />}
                   </FormLabel>
                 </TableHead>
               ))}
@@ -112,20 +109,6 @@ const ShareCapital = () => {
                   name="class"
                   control={form.control}
                   placeholder="Eg: Ordinary, Preferance"
-                />
-                <FormField
-                  name="class"
-                  control={form.control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <Input
-                        placeholder="Eg: Ordinary, Preferance..."
-                        type="text"
-                        {...field}
-                      />
-                      <FormMessage />
-                    </FormItem>
-                  )}
                 />
               </TableCell>
               <TableCell>
@@ -198,23 +181,12 @@ const ShareCapital = () => {
                 />
               </TableCell>
               <TableCell>
-				<CustomFormField type="number" name="total" control={form.control} readOnly />
-                <FormField
+                <CustomFormField
+                  type="number"
                   name="total"
+                  placeholder="XXXXX"
                   control={form.control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          readOnly
-                          placeholder="XXXX"
-                          type="number"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  readOnly
                 />
               </TableCell>
               <TableCell>
@@ -225,6 +197,7 @@ const ShareCapital = () => {
                     <FormItem>
                       <FormControl>
                         <Input
+                        type="number"
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
@@ -251,6 +224,7 @@ const ShareCapital = () => {
                   name="rightsAttached"
                   control={form.control}
                   placeholder="Voting Rights, etc."
+                  hoverCard={<RightsHoverCard/>}
                 />
               </TableCell>
             </TableRow>
@@ -264,4 +238,4 @@ const ShareCapital = () => {
   );
 };
 
-export default ShareCapital;
+export default ShareCapitalForm;

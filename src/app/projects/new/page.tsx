@@ -1,8 +1,15 @@
+"use client";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useShareCapitalStore } from "@/store/ShareCapitalStore";
 import { WelcomeDialog } from "../_components/Popups/WelcomeDialog"
 import CompanyInfoForm from "../_components/forms/CompanyInfoForm"
+import FormWrapper from "@/components/FormWrapper";
+import ShareCapitalForm from "../_components/forms/ShareCapitalForm";
+import ShareCapitalInfo from "@/components/datatables/ShareCapitalInfo";
 
 const ProjectRegistrationPage = () => {
+  const {shareCapitalData} = useShareCapitalStore();
   return (
     <section className="py-4 container">
         <WelcomeDialog/>
@@ -14,7 +21,7 @@ const ProjectRegistrationPage = () => {
                 <TabsTrigger value="Company Secretary">Company Secretary</TabsTrigger>
             </TabsList>
             <TabsContent value="Company Info"><CompanyInfoForm/></TabsContent>
-            <TabsContent value="Shares Info">Shares Info</TabsContent>
+            <TabsContent value="Shares Info"><FormWrapper name="Share Capital" shareCapitalForm={<ShareCapitalForm/>} dataTable={<ShareCapitalInfo/>} /></TabsContent>
             <TabsContent value="Directors">Directors</TabsContent>
             <TabsContent value="Company Secreatary">Company Secretary</TabsContent>
         </Tabs>

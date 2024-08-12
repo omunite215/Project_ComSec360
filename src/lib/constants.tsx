@@ -636,3 +636,16 @@ export const currencyContent = [
 	"NZD",
   ];
 
+  export const shareCapitalContent = [
+	{
+	  id: 1,
+	  class: "Ordinary",
+	  totalProposed: 1000,
+	  currency: "HKD",
+	  unitPrice: 1,
+	  total: 1000,
+	  paid: 200,
+	  unpaid: 800,
+	  rightsAttached: "Voting Rights",
+	},
+  ];
