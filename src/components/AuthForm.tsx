@@ -15,8 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { on } from "stream";
-import { z } from "zod";
+import type { z } from "zod";
 
 const AuthForm = () => {
   const router = useRouter();

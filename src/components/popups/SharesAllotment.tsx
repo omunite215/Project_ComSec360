@@ -31,7 +31,7 @@ const SharesAllotment = ({
       <DialogTrigger asChild>
         <Button variant="link">{numberOfShares}</Button>
       </DialogTrigger>
-      {numberOfShares === 0 ? (
+      {!details ? (
         <DialogContent>
           <DialogTitle>No Shares Allotted!!</DialogTitle>
           <DialogDescription>

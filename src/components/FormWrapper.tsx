@@ -54,7 +54,7 @@ const FormWrapper = ({
 					</CollapsibleTrigger>
 				</div>
 				<CardContent className="space-y-6">
-					<CollapsibleContent className="CollapsibleContent">
+					<CollapsibleContent className="CollapsibleContent *:py-6">
 						{dataTable}
 					</CollapsibleContent>
 				</CardContent>

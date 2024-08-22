@@ -213,11 +213,14 @@ const EditShareCapital = ({ id }: { id: number }) => {
               label="Rights Attached"
               placeholder="Eg: Voting..."
             />
-            <DialogFooter>
+            <div>
+              
+            <DialogFooter className="sm:justify-start">
               <DialogClose asChild>
                 <Button type="submit">Save changes</Button>
               </DialogClose>
             </DialogFooter>
+            </div>
           </form>
         </Form>
       </DialogContent>

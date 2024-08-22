@@ -2,7 +2,7 @@
 
 import { ShareCapitalFormSchema } from "@/lib/validationSchemas";
 import { RightsHoverCard } from "@/components/hovercards";
-import { Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -33,8 +33,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import CustomFormField from "@/components/CustomFormFields";
+import { useShareCapitalStore } from "@/store/ShareCapitalStore";
+import { toast } from "react-hot-toast";
 
 const ShareCapitalForm = () => {
+  const { shareCapitalData, addShareCapitalData } = useShareCapitalStore();
   const form = useForm<z.infer<typeof ShareCapitalFormSchema>>({
     resolver: zodResolver(ShareCapitalFormSchema),
     defaultValues: {
@@ -67,23 +70,20 @@ const ShareCapitalForm = () => {
   };
 
   // Submit Handler.
-  // function onSubmit(values: z.infer<typeof ShareCapitalFormSchema>) {
-  // 	console.log(values);
-  // 	const newId = Math.max(...shareCapitalData.map((entry) => entry.id), 0) + 1;
-  // 	const newValues = {
-  // 		id: newId,
-  // 		...values,
-  // 	};
-  // 	addShareCapitalData(newValues);
-  // 	toast({
-  // 		title: "Success!!",
-  // 		description: "Field has been Added Successfully!!",
-  // 	});
-  // }
+  const onSubmit = (values: z.infer<typeof ShareCapitalFormSchema>) => {
+    console.log(values);
+    const newId = Math.max(...shareCapitalData.map((entry) => entry.id), 0) + 1;
+    const newValues = {
+      id: newId,
+      ...values,
+    };
+    addShareCapitalData(newValues);
+    toast.success("Success!! Field has been Added Successfully!!");
+  };
 
   return (
     <Form {...form}>
-      <form className="space-y-8">
+      <form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
         <Table>
           <TableHeader>
             <TableRow>
@@ -197,7 +197,7 @@ const ShareCapitalForm = () => {
                     <FormItem>
                       <FormControl>
                         <Input
-                        type="number"
+                          type="number"
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
@@ -224,13 +224,13 @@ const ShareCapitalForm = () => {
                   name="rightsAttached"
                   control={form.control}
                   placeholder="Voting Rights, etc."
-                  hoverCard={<RightsHoverCard/>}
+                  hoverCard={<RightsHoverCard />}
                 />
               </TableCell>
             </TableRow>
           </TableBody>
         </Table>
-        <div>
+        <div className="p-3">
           <Button type="submit">Add Share</Button>
         </div>
       </form>
