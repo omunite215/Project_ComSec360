@@ -45,7 +45,7 @@ interface CustomProps extends BaseProps {
 }
 
 interface CustomCheckboxProps extends BaseProps {
-  label: string;
+  label?: string;
   value1: string;
   value2: string;
 }
@@ -86,10 +86,12 @@ export const CustomCheckboxField = ({
       control={control}
       render={({ field }) => (
         <FormItem>
-          <FormLabel className="inline-flex items-center gap-2">
-            <span>{label}</span>
-            {hoverCard && hoverCard}
-          </FormLabel>
+          {label && (
+            <FormLabel className="inline-flex items-center gap-2">
+              <span>{label}</span>
+              {hoverCard && hoverCard}
+            </FormLabel>
+          )}
           <FormControl>
             <RadioGroup
               onValueChange={field.onChange}

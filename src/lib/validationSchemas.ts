@@ -155,7 +155,7 @@ export const ShareholdersFormSchema = z.object({
   shareDetails: z.array(shareDetailsSchema).default([]),
   idProof: z
     .any()
-    .refine((file: string | any[]) => file?.length == 1, "File is required.")
+    .refine((file: string | any[]) => file?.length === 1, "File is required.")
     .refine(
       (file: { size: number }[]) => file[0]?.size <= 3000000,
       "Max file size is 3MB."
