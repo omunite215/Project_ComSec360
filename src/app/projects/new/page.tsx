@@ -1,15 +1,15 @@
-"use client";
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useShareCapitalStore } from "@/store/ShareCapitalStore";
 import { WelcomeDialog } from "../_components/Popups/WelcomeDialog";
 import CompanyInfoForm from "../_components/forms/CompanyInfoForm";
 import FormWrapper from "@/components/FormWrapper";
 import ShareCapitalForm from "../_components/forms/ShareCapitalForm";
 import ShareCapitalInfo from "@/components/datatables/ShareCapitalInfo";
+import ShareholderForm from "../_components/forms/ShareholderForm";
+import DirectorForm from "../_components/forms/DirectorForm";
+import CompanySecretaryForm from "../_components/forms/CompanySecretaryForm";
+import InviteGuestUsers from "../_components/forms/InviteGuestUser";
 
 const ProjectRegistrationPage = () => {
-  const { shareCapitalData } = useShareCapitalStore();
   return (
     <section className="py-4 container">
       <WelcomeDialog />
@@ -23,16 +23,30 @@ const ProjectRegistrationPage = () => {
         <TabsContent value="Company Info">
           <CompanyInfoForm />
         </TabsContent>
-        <TabsContent value="Shares Info">
+        <TabsContent value="Shares Info" className="space-y-4">
           <FormWrapper
             name="Share Capital"
             shareCapitalForm={<ShareCapitalForm />}
             dataTable={<ShareCapitalInfo />}
           />
-          <FormWrapper name="Shareholders"/>
+          <FormWrapper
+            name="Shareholder"
+            dataTable={<ShareCapitalInfo />}
+            form={<ShareholderForm />}
+            inviteForm={<InviteGuestUsers text="Shareholder" />}
+          />
         </TabsContent>
-        <TabsContent value="Directors">Directors</TabsContent>
-        <TabsContent value="Company Secreatary">Company Secretary</TabsContent>
+        <TabsContent value="Directors">
+          <FormWrapper
+            name="Director"
+            dataTable={<ShareCapitalInfo />}
+            form={<DirectorForm />}
+            inviteForm={<InviteGuestUsers text="Shareholder" />}
+          />
+        </TabsContent>
+        <TabsContent value="Company Secretary">
+          <CompanySecretaryForm />
+        </TabsContent>
       </Tabs>
     </section>
   );

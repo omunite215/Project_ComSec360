@@ -231,7 +231,7 @@ const CustomFormField = ({
             {name === "presentorTel" ||
             name === "presentorFax" ||
             name === "companyFax" ||
-            name === "companyTel" ? (
+            name === "companyTel" || name === "phone" ? (
               <PhoneInput
                 placeholder={placeholder}
                 defaultCountry="HK"

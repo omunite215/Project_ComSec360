@@ -105,3 +105,18 @@ export const RightsHoverCard = () => {
 		</HoverCard>
 	);
 };
+
+// Shareholders
+
+export const AddressInfoHoverCard = () => {
+	return (
+		<HoverCard>
+			<HoverCardTrigger>
+				<InfoIcon size={24} />
+			</HoverCardTrigger>
+			<HoverCardContent className="w-80">
+				<p>Address proof can be a bank letter or utility letter with the name and the address.</p>
+			</HoverCardContent>
+		</HoverCard>
+	);
+};
