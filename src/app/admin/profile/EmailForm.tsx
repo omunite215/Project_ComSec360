@@ -71,7 +71,7 @@ const EmailForm = () => {
 				<CardHeader>
 					<CardTitle>Email</CardTitle>
 					<CardDescription>
-						Make changes to your Email here. Click save when you're done.
+						Make changes to your Email here. Click save when you&apos;re done.
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-2">

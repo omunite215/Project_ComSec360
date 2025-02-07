@@ -53,7 +53,7 @@ const NameForm = () => {
 				<CardHeader>
 					<CardTitle>Name</CardTitle>
 					<CardDescription>
-						Make changes to your Name here. Click save when you're done.
+						Make changes to your Name here. Click save when you&apos;re done.
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-2">
