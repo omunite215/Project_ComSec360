@@ -23,12 +23,12 @@ const userDropdownLinks = [
   {
     title: "Profile",
     icon: <User className="mr-2 h-4 w-4" />,
-    href: "/settings/#profile",
+    href: "/admin/profile",
   },
   {
     title: "Account Settings",
     icon: <Settings className="mr-2 h-4 w-4" />,
-    href: "/settings/#account",
+    href: "/admin/preferences",
   },
 ] as const;
 

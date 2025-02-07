@@ -224,3 +224,5 @@ export const CompanySecretaryFormSchema = z.object({
     ),
   addressProof: z.any(),
 });
+
+
